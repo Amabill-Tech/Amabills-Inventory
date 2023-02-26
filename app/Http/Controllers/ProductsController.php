@@ -21,6 +21,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
+use App\Models\Provider;
 
 class ProductsController extends BaseController
 {
@@ -43,7 +44,7 @@ class ProductsController extends BaseController
         $param = array(0 => 'like', 1 => '=', 2 => '=', 3 => 'like');
         $data = array();
 
-        $products = Product::with('unit', 'category', 'brand')
+        $products = Product::where('shit_type', 'product')->with('unit', 'category', 'brand')
             ->where('deleted_at', '=', null);
 
         //Multiple Filter
@@ -81,7 +82,7 @@ class ProductsController extends BaseController
             $item['id'] = $product->id;
             $item['code'] = $product->code;
             $item['name'] = $product->name;
-            $item['category'] = $product['category']->name;
+            $item['category'] = $product->name;
             $item['brand'] = $product['brand'] ? $product['brand']->name : 'N/D';
             $item['unit'] = $product['unit']->ShortName;
             $item['price'] = $product->price;
@@ -160,6 +161,7 @@ class ProductsController extends BaseController
                 $id = $Product->id;
 
                 $Product->name = $request['name'];
+                $Product->shit_type = 'product';
                 $Product->code = $request['code'];
                 $Product->Type_barcode = $request['Type_barcode'];
                 $Product->price = $request['price'];

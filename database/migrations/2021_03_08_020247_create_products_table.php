@@ -33,6 +33,7 @@ class CreateProductsTable extends Migration {
 			$table->float('TaxNet', 10, 0)->nullable()->default(0);
 			$table->string('tax_method', 192)->nullable()->default('1');
 			$table->text('image')->nullable();
+			$table->text('shit_type')->nullable();
 			$table->text('note')->nullable();
 			$table->float('stock_alert', 10, 0)->nullable()->default(0);
 			$table->boolean('is_variant')->default(0);
